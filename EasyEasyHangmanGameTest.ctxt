@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=
+comment0.target=EasyEasyHangmanGameTest()
+comment1.params=
+comment1.target=void\ answerTest()
+comment2.params=
+comment2.target=void\ guessTest()
+comment3.params=
+comment3.target=void\ userWonTest()
+comment4.params=
+comment4.target=void\ userLostTest()
+numComments=5

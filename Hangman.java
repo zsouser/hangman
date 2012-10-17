@@ -34,7 +34,7 @@ public class Hangman {
                     words.add(sc.nextLine());
                 }
             
-                HangmanGame hg = new HangmanGame(words,length,guesses);
+                HangmanGame hg = new EvilHangmanGame(words,length,guesses);
                 while (!hg.userWon() && !hg.userLost()) {
                     showResults(hg,ui);
                     playGame(hg,ui);

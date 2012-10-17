@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=
+comment0.target=HangmanTUI()
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ HangmanTUI\n
+comment1.params=question
+comment1.target=java.lang.String\ askUser(java.lang.String)
+comment1.text=\n\ An\ example\ of\ a\ method\ -\ replace\ this\ comment\ with\ your\ own\n\ \n\ @param\ \ y\ \ \ a\ sample\ parameter\ for\ a\ method\n\ @return\ \ \ \ \ the\ sum\ of\ x\ and\ y\ \n
+comment2.params=message
+comment2.target=void\ tellUser(java.lang.String)
+comment3.params=prompt
+comment3.target=boolean\ confirmUser(java.lang.String)
+numComments=4

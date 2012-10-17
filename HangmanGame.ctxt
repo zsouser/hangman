@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=
+comment0.target=java.lang.String\ answer()
+comment0.text=\n\ An\ example\ of\ a\ method\ header\ -\ replace\ this\ comment\ with\ your\ own\n\ \n\ @param\ \ y\ \ \ \ a\ sample\ parameter\ for\ a\ method\n\ @return\ \ \ \ \ \ \ \ the\ result\ produced\ by\ sampleMethod\ \n
+comment1.params=
+comment1.target=java.util.SortedSet\ guesses()
+comment2.params=
+comment2.target=int\ guessesLeft()
+comment3.params=guess
+comment3.target=int\ guess(char)
+comment4.params=
+comment4.target=java.lang.String\ pattern()
+comment5.params=
+comment5.target=boolean\ userLost()
+comment6.params=
+comment6.target=boolean\ userWon()
+numComments=7

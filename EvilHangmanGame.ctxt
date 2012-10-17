@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.params=words\ length\ guesses
+comment0.target=EvilHangmanGame(java.util.List,\ int,\ int)
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Game\n
+comment1.params=
+comment1.target=java.lang.String\ answer()
+comment2.params=
+comment2.target=java.util.SortedSet\ guesses()
+comment3.params=
+comment3.target=int\ guessesLeft()
+comment4.params=
+comment4.target=java.lang.String\ pattern()
+comment5.params=
+comment5.target=boolean\ userLost()
+comment6.params=
+comment6.target=boolean\ userWon()
+comment7.params=guess
+comment7.target=int\ guess(char)
+numComments=8

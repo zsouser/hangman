@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.params=question
+comment0.target=java.lang.String\ askUser(java.lang.String)
+comment0.text=\n\ An\ example\ of\ a\ method\ header\ -\ replace\ this\ comment\ with\ your\ own\n\ \n\ @param\ \ y\ \ \ \ a\ sample\ parameter\ for\ a\ method\n\ @return\ \ \ \ \ \ \ \ the\ result\ produced\ by\ sampleMethod\ \n
+comment1.params=prompt
+comment1.target=boolean\ confirmUser(java.lang.String)
+comment2.params=message
+comment2.target=void\ tellUser(java.lang.String)
+numComments=3
