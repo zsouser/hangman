@@ -21,21 +21,31 @@ public class HangmanGUI extends JOptionPane implements HangmanUI
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * Ask the user a question
      * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * @param  question the question
+     * @return the string submitted by the user 
      */
     public String askUser(String question)
     {
        return showInputDialog(this, question);
-       //return "";
     }
     
-    
+    /**
+     * Confirm something from the user
+     * 
+     * @param question The question asked
+     * @return the true/false yes/no response
+     */
     public boolean confirmUser(String question) {
         return showConfirmDialog(this,question) == 0;
     } 
+    
+    /**
+     * Tell the user something
+     * 
+     * @param message The message to be passed to the user
+     */
     
     public void tellUser(String message) {
         showMessageDialog(this, message);

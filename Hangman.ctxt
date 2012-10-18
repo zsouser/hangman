@@ -1,9 +1,14 @@
 #BlueJ class context
 comment0.params=args
 comment0.target=void\ main(java.lang.String[])
-comment0.text=\n\ An\ example\ of\ a\ method\ -\ replace\ this\ comment\ with\ your\ own\n\ \n\ @param\ \ y\ \ \ a\ sample\ parameter\ for\ a\ method\n\ @return\ \ \ \ \ the\ sum\ of\ x\ and\ y\ \n
-comment1.params=g\ u
-comment1.target=void\ playGame(HangmanGame,\ HangmanUI)
+comment0.text=\n\ The\ main\ method,\ executes\ the\ hangman\ game\ and\ initialize\ the\ UI\n\ @param\ \ args\ \ \ The\ arguments\ passed\ to\ the\ console\n
+comment1.params=length
+comment1.target=java.util.ArrayList\ chooseWords(int)
+comment1.text=\n\ Load\ the\ dictionary\ of\ words\n\ \n\ @param\ length\ the\ length\ of\ the\ words\ to\ be\ chosen\n\ @throws\ FileNotFoundException\n
 comment2.params=g\ u
-comment2.target=void\ showResults(HangmanGame,\ HangmanUI)
-numComments=3
+comment2.target=void\ playGame(HangmanGame,\ HangmanUI)
+comment2.text=\n\ Play\ one\ iteration\ of\ the\ game\n\ \n\ @param\ g\ The\ game\ state\n\ @param\ u\ The\ UI\ state\n
+comment3.params=g\ u
+comment3.target=void\ showResults(HangmanGame,\ HangmanUI)
+comment3.text=\ \n\ Show\ the\ results\ of\ the\ game\ state\n\ \n\ @param\ g\ Game\ state\n\ @param\ u\ UI\ state\n
+numComments=4

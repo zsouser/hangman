@@ -1,5 +1,4 @@
-import java.io.*;
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * Write a description of class HangmanTUI here.
@@ -9,11 +8,12 @@ import java.util.*;
  */
 public class HangmanTUI implements HangmanUI
 {
-    // instance variables - replace the example below with your own
+    // The scanner for the console
     Scanner console;
 
     /**
      * Constructor for objects of class HangmanTUI
+     * Initializes the text UI
      */
     public HangmanTUI()
     {
@@ -21,19 +21,32 @@ public class HangmanTUI implements HangmanUI
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * Ask the user a question
      * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * @param  question   The question shown to the user
+     * @return     The string provided by the user in response
      */
     public String askUser(String question) {
         System.out.println(question);
         return console.nextLine();
     }
     
+    /** 
+     * Tell the user something
+     * 
+     * @param message The message to be passed
+     */
+    
     public void tellUser(String message) {
         System.out.println(message);
     }
+    
+    /** 
+     * Prompt the user, asking them to confirm yes or no
+     * 
+     * @param prompt The prompt to be shown to the user
+     * @return the user's response
+     */
     
     public boolean confirmUser(String prompt) {
         tellUser(prompt);

@@ -1,23 +1,38 @@
-import java.util.*;
-import java.io.*;
-import java.lang.Math.*;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.TreeMap;
+import java.util.Random;
 /**
- * Write a description of class Game here.
+ * The EvilHangmanGame class is an implementation of the HangmanGame interface
+ * that elusively does not select the chosen word unless the latest possible time.
+ * This class, however, does attempt to deceive the user by providing an accurate pattern
+ * for the guessed characters.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Zach Souser
  */
 public class EvilHangmanGame implements HangmanGame
 {
-    // instance variables - replace the example below with your own
+    // The number of guesses left
     private int guessesLeft;
+    // The set of letters guessed
     private SortedSet<Character> guesses;
+    // The working collection of words
     private List<String> words;
+    // The length of the target word
     private int length;
+    // The working pattern to be provided to the user
     private String pattern;
+    
+    
     /**
-     * Constructor for objects of class Game
+     * Constructor for objects of class EvilHangmanGame
+     * @param words A List of words to use
+     * @param length The length of the word to be chosen
+     * @param guesses The number of guesses allowed
      */
+    
     public EvilHangmanGame(List<String> words, int length, int guesses)
     {
         this.words = new ArrayList<String>();
@@ -35,28 +50,58 @@ public class EvilHangmanGame implements HangmanGame
         }
     }
     
+    /**
+     * Randomly selects an answer from the list of available words
+     * @return The randomly selected answer
+     */
+    
     public String answer() {
         Random r = new Random();
         return this.words.get(r.nextInt(words.size()));
     }
     
+    /**
+     * Accessor for the list of guesses
+     * @return The list of guesses
+     */
+    
     public SortedSet<Character> guesses() {
         return this.guesses;
     }
+    
+    /**
+     * Accessor for the number of guesses left in the game
+     * @return The number of guesses left
+     */
     
     public int guessesLeft() {
         return this.guessesLeft;
     }
     
+    /**
+     * Accessor method for the pattern used by the game
+     * @return The working pattern
+     */
+    
     public String pattern() {
         return this.pattern;
     }
     
+    /**
+     * Evaluates if the user has lost the game,
+     * 
+     * @return Whether the user lost the game
+     */
     public boolean userLost() {
         return guessesLeft == 0;
         
     }
     
+    /**
+     * Evaluates if the user has won the game,
+     * 
+     * @return Whether the user won the game
+     */
     public boolean userWon() {
         for (int i = 0; i < this.pattern.length(); i+=2) {
             if (this.pattern.charAt(i) == '-') return false;
@@ -64,6 +109,15 @@ public class EvilHangmanGame implements HangmanGame
         return true;
     }
     
+    /**
+     * Guess a character. Sorts the dictionary based on 
+     * the occurrence of the guessed character. Then the largest
+     * set of words matching the guessed character replaces
+     * the working dictionary and the corresponding pattern applies
+     * 
+     * @param guess the guessed character
+     * @return the number of occurrences of the guessed character in the goal word
+     */
     public int guess(char guess) throws IllegalStateException, IllegalArgumentException {
         if (this.guessesLeft == 0) throw new IllegalStateException(); 
         if (this.guesses.contains(guess)) throw new IllegalArgumentException();
@@ -126,7 +180,7 @@ public class EvilHangmanGame implements HangmanGame
         
         this.pattern = pattern;
         this.words = patterns.get(pattern);
-        System.out.println(n + " " + pattern);
+        if (n == 0) guessesLeft--;
         return n;
        
     }

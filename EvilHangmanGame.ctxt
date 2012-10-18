@@ -1,19 +1,26 @@
 #BlueJ class context
 comment0.params=words\ length\ guesses
 comment0.target=EvilHangmanGame(java.util.List,\ int,\ int)
-comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Game\n
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ EvilHangmanGame\n\ @param\ words\ A\ List\ of\ words\ to\ use\n\ @param\ length\ The\ length\ of\ the\ word\ to\ be\ chosen\n\ @param\ guesses\ The\ number\ of\ guesses\ allowed\n
 comment1.params=
 comment1.target=java.lang.String\ answer()
+comment1.text=\n\ Randomly\ selects\ an\ answer\ from\ the\ list\ of\ available\ words\n\ @return\ The\ randomly\ selected\ answer\n
 comment2.params=
 comment2.target=java.util.SortedSet\ guesses()
+comment2.text=\n\ Accessor\ for\ the\ list\ of\ guesses\n\ @return\ The\ list\ of\ guesses\n
 comment3.params=
 comment3.target=int\ guessesLeft()
+comment3.text=\n\ Accessor\ for\ the\ number\ of\ guesses\ left\ in\ the\ game\n\ @return\ The\ number\ of\ guesses\ left\n
 comment4.params=
 comment4.target=java.lang.String\ pattern()
+comment4.text=\n\ Accessor\ method\ for\ the\ pattern\ used\ by\ the\ game\n\ @return\ The\ working\ pattern\n
 comment5.params=
 comment5.target=boolean\ userLost()
+comment5.text=\n\ Evaluates\ if\ the\ user\ has\ lost\ the\ game,\n\ \n\ @return\ Whether\ the\ user\ lost\ the\ game\n
 comment6.params=
 comment6.target=boolean\ userWon()
+comment6.text=\n\ Evaluates\ if\ the\ user\ has\ won\ the\ game,\n\ \n\ @return\ Whether\ the\ user\ won\ the\ game\n
 comment7.params=guess
 comment7.target=int\ guess(char)
+comment7.text=\n\ Guess\ a\ character.\ Sorts\ the\ dictionary\ based\ on\ \n\ the\ occurrence\ of\ the\ guessed\ character.\ Then\ the\ largest\n\ set\ of\ words\ matching\ the\ guessed\ character\ replaces\n\ the\ working\ dictionary\ and\ the\ corresponding\ pattern\ applies\n\ \n\ @param\ guess\ the\ guessed\ character\n\ @return\ the\ number\ of\ occurrences\ of\ the\ guessed\ character\ in\ the\ goal\ word\n
 numComments=8

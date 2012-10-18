@@ -1,19 +1,19 @@
-import java.util.*;
-import java.io.*;
+import java.util.List;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 /**
- * Write a description of class Hangman here.
+ * Driver class for the Hangman game
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Zach Souser
  */
 public class Hangman {
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * The main method, executes the hangman game and initialize the UI
+     * @param  args   The arguments passed to the console
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Welcome to the hangman guessing game");
         HangmanUI ui = new HangmanGUI();
         try {
@@ -27,30 +27,46 @@ public class Hangman {
                 ui.tellUser("Come on, at least leave yourself 2 guesses!");
                 main(args);
             }
-            ArrayList<String> words = new ArrayList<String>();
-            try {
-                Scanner sc = new Scanner(new File("words.txt"));
-                while (sc.hasNextLine()) {
-                    words.add(sc.nextLine());
-                }
+            ArrayList<String> words = chooseWords(length);
             
-                HangmanGame hg = new EvilHangmanGame(words,length,guesses);
-                while (!hg.userWon() && !hg.userLost()) {
-                    showResults(hg,ui);
-                    playGame(hg,ui);
-                }
-                if (ui.confirmUser("Play again?")) main(args);
-                else ui.tellUser("Goodbye");
+            HangmanGame hg = new EvilHangmanGame(words,length,guesses);
             
-            } catch (FileNotFoundException e) {
-                ui.tellUser("ERROR: Dictionary is missing!");
+            while (!hg.userWon() && !hg.userLost()) {
+                showResults(hg,ui);
+                playGame(hg,ui);
             }
+            
+            if (ui.confirmUser("Play again?")) main(args);
+            else ui.tellUser("Goodbye");
+            
         } catch (NumberFormatException e) {
             ui.tellUser("ERROR: Invalid number");
             main(args);
         }
     }
-
+    
+    /**
+     * Load the dictionary of words
+     * 
+     * @param length the length of the words to be chosen
+     * @throws FileNotFoundException
+     */
+    
+    public static ArrayList<String> chooseWords(int length) throws FileNotFoundException {
+        ArrayList<String> words = new ArrayList<String>();
+        Scanner sc = new Scanner(new File("words.txt"));
+        while (sc.hasNextLine()) {
+            words.add(sc.nextLine());
+        }    
+        return words;
+    }
+    
+    /**
+     * Play one iteration of the game
+     * 
+     * @param g The game state
+     * @param u The UI state
+     */
     public static void playGame(HangmanGame g, HangmanUI u) {
         try {
             char guess = u.askUser("Your guess?").toLowerCase().charAt(0);
@@ -82,9 +98,16 @@ public class Hangman {
         }
     }   
     
+    /** 
+     * Show the results of the game state
+     * 
+     * @param g Game state
+     * @param u UI state
+     */
+    
     public static void showResults(HangmanGame g, HangmanUI u) {
-        u.tellUser("guesses left : " + g.guessesLeft());
-        u.tellUser("guessed : " + g.guesses());
-        u.tellUser("current : " + g.pattern());
+        u.tellUser("guesses left : " + g.guessesLeft() + "\n" +
+                    "guessed : " + g.guesses() + "\n" +
+                    "current : " + g.pattern());
     }
 }
