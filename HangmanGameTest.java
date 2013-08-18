@@ -23,13 +23,13 @@ public class HangmanGameTest
     }
     @Test
     public void answerTest() {
-        HangmanGame game = new HangmanGame(words,3,5);
+        HangmanGame game = new EasyHangmanGame(words,3,5);
         assertEquals(game.answer(),"ebb");
     }
     
     @Test
     public void guessTest() {
-        HangmanGame game = new HangmanGame(words,3,5);
+        HangmanGame game = new EasyHangmanGame(words,3,5);
         int result = game.guess('b');
         assert(game.guesses().contains((Character)'b'));
         assertEquals(result,2);
@@ -42,7 +42,7 @@ public class HangmanGameTest
     
     @Test
     public void userWonTest() {
-        HangmanGame game = new HangmanGame(words,3,3);
+        HangmanGame game = new EasyHangmanGame(words,3,3);
         game.guess('b');
         game.guess('e');
         assert(game.userWon());
@@ -50,7 +50,7 @@ public class HangmanGameTest
     
     @Test
     public void userLostTest() {
-        HangmanGame game = new HangmanGame(words,3,2);
+        HangmanGame game = new EasyHangmanGame(words,3,2);
         game.guess('d');
         game.guess('f');
         assert(game.userLost());

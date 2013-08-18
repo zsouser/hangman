@@ -14,35 +14,8 @@ public class Hangman {
      * @param  args   The arguments passed to the console
      */
     public static void main(String[] args) throws FileNotFoundException {
-        System.out.println("Welcome to the hangman guessing game");
         HangmanUI ui = new HangmanGUI();
-        try {
-            int length = Integer.parseInt(ui.askUser("What length word do you want to use??"));
-            int guesses = Integer.parseInt(ui.askUser("How many wrong answers allowed?"));
-            if (length < 2) {
-                ui.tellUser("Choose a longer word. Must be at least 2 letters long.");
-                main(args);
-            } 
-            if (guesses < 2) {
-                ui.tellUser("Come on, at least leave yourself 2 guesses!");
-                main(args);
-            }
-            ArrayList<String> words = chooseWords(length);
-            
-            HangmanGame hg = new EvilHangmanGame(words,length,guesses);
-            
-            while (!hg.userWon() && !hg.userLost()) {
-                showResults(hg,ui);
-                playGame(hg,ui);
-            }
-            
-            if (ui.confirmUser("Play again?")) main(args);
-            else ui.tellUser("Goodbye");
-            
-        } catch (NumberFormatException e) {
-            ui.tellUser("ERROR: Invalid number");
-            main(args);
-        }
+        playGame(ui);
     }
     
     /**
@@ -56,7 +29,9 @@ public class Hangman {
         ArrayList<String> words = new ArrayList<String>();
         Scanner sc = new Scanner(new File("words.txt"));
         while (sc.hasNextLine()) {
-            words.add(sc.nextLine());
+            String word = sc.nextLine();
+            if (word.length() == length)
+                words.add(word);
         }    
         return words;
     }
@@ -67,36 +42,53 @@ public class Hangman {
      * @param g The game state
      * @param u The UI state
      */
-    public static void playGame(HangmanGame g, HangmanUI u) {
-        try {
-            char guess = u.askUser("Your guess?").toLowerCase().charAt(0);
-            try {
-                int result = g.guess(guess);
-                if (result == 0) {
-                    u.tellUser("Sorry, there are no " + guess + "'s");
-                } else if (result == 1) {
-                    u.tellUser("Yes, there is one " + guess);
-                } else {
-                    u.tellUser("Yes, there are " + result + " " + guess + "'s");
-                }
-                if (g.userWon()) {
-                    u.tellUser("The word was " + g.answer());
-                    u.tellUser("You won! Congratulations.");
-                }
-                if (g.userLost()) {
-                    u.tellUser("The word was " + g.answer());
-                    u.tellUser("Sorry, you lose.");
-                }
-            } catch (IllegalStateException e) {
-                System.out.println("Game is over");
-            } catch (IllegalArgumentException e) {
-                System.out.println("Already guessed that.");
-            }
-        } catch (IndexOutOfBoundsException e) {
-            u.tellUser("Invalid input");
-            playGame(g,u);
+    public static void playGame(HangmanUI ui) {
+    
+        HangmanGame hg = initializeGame(ui);
+        while (!hg.userWon() && !hg.userLost()) {
+            showResults(hg,ui);
         }
-    }   
+        
+        if (ui.confirmUser("Play again?")) playGame(ui);
+        else ui.tellUser("Goodbye");
+    }  
+    
+    /**
+     * Initialize the game state
+     * 
+     * 
+     * @param ui the user interface
+     * @return the hangman game instance. Note: you can customize (evil/regular) 
+     *          hangman games in this method
+     */
+    
+    private static HangmanGame initializeGame(HangmanUI ui) {
+        int length = 0;
+        int guesses = 0;
+        ArrayList<String> words = new ArrayList<String>();
+        try {
+            length = Integer.parseInt(ui.askUser("What length word do you want to use??"));
+            guesses = Integer.parseInt(ui.askUser("How many wrong answers allowed?"));
+            
+            if (length < 2) {
+                ui.tellUser("Choose a longer word. Must be at least 2 letters long.");
+                return initializeGame(ui);
+            }
+        
+            if (guesses < 2) {
+                ui.tellUser("Come on, at least leave yourself 2 guesses!");
+                return initializeGame(ui);
+            }
+            words = chooseWords(length);
+            
+        } catch (NumberFormatException e) {
+            ui.tellUser("ERROR: Invalid number");
+        } catch (FileNotFoundException e) {
+            ui.tellUser("Invalid file");
+        }
+       
+        return new EasyHangmanGame(words,length,guesses);
+    }
     
     /** 
      * Show the results of the game state
@@ -105,9 +97,43 @@ public class Hangman {
      * @param u UI state
      */
     
-    public static void showResults(HangmanGame g, HangmanUI u) {
-        u.tellUser("guesses left : " + g.guessesLeft() + "\n" +
-                    "guessed : " + g.guesses() + "\n" +
-                    "current : " + g.pattern());
+    public static void showResults(HangmanGame g, HangmanUI u) throws IllegalStateException {
+        try {
+            char guess = 0;
+            do {
+                guess = u.askUser("Your guess?").toLowerCase().charAt(0);
+            } while (guess < 'A' || guess > 'z');
+            
+            int result = g.guess(guess);
+            
+            String message = "";
+            if (result == 0) {
+                message = message + "Sorry, there are no " + guess + "'s";
+            } else if (result == 1) {
+                message = message + "Yes, there is one " + guess;
+            } else {
+                message = message + "Yes, there are " + result + " " + guess + "'s";
+            }
+            if (g.userWon()) {
+                message = message + "\nThe word was " + g.answer()+"\nYou won! Congratulations.";
+            }
+            else if (g.userLost()) {
+                message = message + "\nThe word was " + g.answer() + "\nSorry, you lose.";
+            }
+            else {
+                message = message + "\n\nguesses left : " + g.guessesLeft() + "\n" +
+                        "guessed : " + g.guesses() + "\n" +
+                        "current : " + g.pattern();
+            }
+            u.tellUser(message);
+        } catch (IllegalStateException e) {
+            u.tellUser("Game is over");
+        } catch (IllegalArgumentException e) {
+            u.tellUser("Already guessed that.");
+            showResults(g,u);
+        } catch (IndexOutOfBoundsException e) {
+            if (u.confirmUser("Invalid input. Keep playing?"))
+                showResults(g,u);
+        }
     }
 }

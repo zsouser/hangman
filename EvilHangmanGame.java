@@ -35,11 +35,8 @@ public class EvilHangmanGame implements HangmanGame
     
     public EvilHangmanGame(List<String> words, int length, int guesses)
     {
-        this.words = new ArrayList<String>();
-        
-        for (String w : words) {
-            if (w.length() == length) this.words.add(w);
-        }
+        if (words == null) System.out.println("Words is null");
+        this.words = words;
         
         this.guesses = new TreeSet<Character>();
         this.guessesLeft = guesses;
@@ -57,7 +54,9 @@ public class EvilHangmanGame implements HangmanGame
     
     public String answer() {
         Random r = new Random();
-        return this.words.get(r.nextInt(words.size()));
+        System.out.println(this.words);
+        return this.words.get(r.nextInt(this.words.size()));
+       
     }
     
     /**
@@ -93,7 +92,7 @@ public class EvilHangmanGame implements HangmanGame
      * @return Whether the user lost the game
      */
     public boolean userLost() {
-        return guessesLeft == 0;
+        return guessesLeft == 0 || words == null || words.isEmpty();
         
     }
     
@@ -121,10 +120,10 @@ public class EvilHangmanGame implements HangmanGame
     public int guess(char guess) throws IllegalStateException, IllegalArgumentException {
         if (this.guessesLeft == 0) throw new IllegalStateException(); 
         if (this.guesses.contains(guess)) throw new IllegalArgumentException();
-       
+        
         this.guesses.add(guess);
         TreeMap<String, ArrayList<String>> patterns = new TreeMap<String,ArrayList<String>>();
-        if (this.words == null) return 0;
+        
         for (String w : this.words) {
             int count = 0;
             String pattern = "";
@@ -144,7 +143,7 @@ public class EvilHangmanGame implements HangmanGame
                     count = 0;
                 }
             }
-            
+            //System.out.println(patterns);
             if (count > 0) {
                 if (patterns.containsKey(pattern)) {
                     ArrayList<String> list = patterns.get(pattern);
@@ -164,7 +163,7 @@ public class EvilHangmanGame implements HangmanGame
         for (String p : patterns.keySet()) {
             ArrayList<String> list = patterns.get(p);
             int size = list.size();
-            if (size > max) {
+            if (!patterns.get(p).isEmpty() && size > max) {
                 max = size;
                 pattern = p;
             }
@@ -178,8 +177,10 @@ public class EvilHangmanGame implements HangmanGame
             }
         }
         
-        this.pattern = pattern;
-        this.words = patterns.get(pattern);
+        if (pattern != "") {
+            this.pattern = pattern;
+            this.words = patterns.get(pattern);
+        }
         if (n == 0) guessesLeft--;
         return n;
        

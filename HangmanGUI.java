@@ -1,4 +1,4 @@
-import javax.swing.*;
+    import javax.swing.*;
 
 /**
  * Write a description of class HangmanGUI here.
